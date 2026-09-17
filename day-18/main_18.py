@@ -29,13 +29,22 @@ def circle_placer(turt: Turtle, color_list: list[tuple[int,int,int]], circle_siz
 
 def hirst_painter(turt: Turtle,
                   colorlist: list[tuple[int,int,int]],
+                  x_pos,
+                  y_pos,
                   rows: int = 10,
                   columns: int = 10,
                   spacing: int = 50,
                   circle_size: int = 20 ) -> None:
+    temp_count: int = 0
     for _ in range(rows):
+        watch_1 = temp_count * spacing
+        y_pos_2 = y_pos + watch_1
+        turt.setpos(x_pos, y_pos + temp_count * spacing )
+        temp_count += 1
         for _ in range(columns):
             circle_placer(turt, colorlist, circle_size, spacing)
+            turt.forward(spacing)
+
 
 
 def main():
@@ -45,12 +54,13 @@ def main():
     my_screen.colormode(255)
     timmy: Turtle = Turtle()
     timmy.speed("fastest")
-    width = my_screen.window_width()
-    height = my_screen.window_height()
-    timmy.penup()
-    timmy.setpos(x=-width/2+width/20,y=-height/2+height/20)
 
-    hirst_painter(timmy,color_list)
+    x_pos = (-my_screen.window_width()/2) + (my_screen.window_width()/20)
+    y_pos = (-my_screen.window_height()/2) + (my_screen.window_height()/20)
+    timmy.penup()
+    timmy.setpos(x_pos,y_pos)
+
+    hirst_painter(timmy,color_list, x_pos, y_pos)
 
     my_screen.exitonclick()
 
