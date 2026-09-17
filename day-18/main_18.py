@@ -19,6 +19,14 @@ def color_extractor(image_path: str = "image.jpg", number_of_colors: int = 30, w
 # iterate rows by columns dropping circles
 # random.choice - colors
 
+def circle_placer(turt: Turtle, color_list: list[tuple[int,int,int]], circle_size: int = 20, spacing: int = 50) -> None:
+    turt.pendown()
+    turt.color(choice(color_list))
+    turt.dot(circle_size)
+    turt.penup()
+
+
+
 def hirst_painter(turt: Turtle,
                   colorlist: list[tuple[int,int,int]],
                   rows: int = 10,
@@ -27,6 +35,7 @@ def hirst_painter(turt: Turtle,
                   circle_size: int = 20 ) -> None:
     for _ in range(rows):
         for _ in range(columns):
+            circle_placer(turt, colorlist, circle_size, spacing)
 
 
 def main():
@@ -40,6 +49,8 @@ def main():
     height = my_screen.window_height()
     timmy.penup()
     timmy.setpos(x=-width/2+width/20,y=-height/2+height/20)
+
+    hirst_painter(timmy,color_list)
 
     my_screen.exitonclick()
 
