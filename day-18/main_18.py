@@ -1,5 +1,4 @@
 from turtle import Turtle, Screen
-
 import colorgram
 from random import choice
 
@@ -19,12 +18,9 @@ def color_extractor(image_path: str = "image.jpg", number_of_colors: int = 30, w
 # iterate rows by columns dropping circles
 # random.choice - colors
 
-def circle_placer(turt: Turtle, color_list: list[tuple[int,int,int]], circle_size: int = 20, spacing: int = 50) -> None:
-    turt.pendown()
+def circle_placer(turt: Turtle, color_list: list[tuple[int,int,int]], circle_size: int = 20) -> None:
     turt.color(choice(color_list))
     turt.dot(circle_size)
-    turt.penup()
-
 
 
 def hirst_painter(turt: Turtle,
@@ -35,14 +31,12 @@ def hirst_painter(turt: Turtle,
                   columns: int = 10,
                   spacing: int = 50,
                   circle_size: int = 20 ) -> None:
-    temp_count: int = 0
-    for _ in range(rows):
-        watch_1 = temp_count * spacing
-        y_pos_2 = y_pos + watch_1
-        turt.setpos(x_pos, y_pos + temp_count * spacing )
-        temp_count += 1
+
+    for row in range(rows):
+        current_y = y_pos + (row * spacing)
+        turt.setpos(x_pos, current_y )
         for _ in range(columns):
-            circle_placer(turt, colorlist, circle_size, spacing)
+            circle_placer(turt, colorlist, circle_size)
             turt.forward(spacing)
 
 
@@ -59,8 +53,11 @@ def main():
     y_pos = (-my_screen.window_height()/2) + (my_screen.window_height()/20)
     timmy.penup()
     timmy.setpos(x_pos,y_pos)
+    timmy.hideturtle()
 
+    my_screen.tracer(0)
     hirst_painter(timmy,color_list, x_pos, y_pos)
+    my_screen.update()
 
     my_screen.exitonclick()
 
